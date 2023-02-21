@@ -64,7 +64,7 @@ Ambiente para estudo dos principais frameworks big data em docker.
 * Kafka Manager *http://localhost:9000*
 * Metabase *http://localhost:3000*
 * Nifi *http://localhost:9090*
-* Jupyter Spark *http://localhost:8889*
+* Jupyter Spark *http://localhost:8889/lab*
 * Hue *http://localhost:8888*
 * Spark *http://localhost:4040*
 
