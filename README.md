@@ -5,6 +5,8 @@ Ambiente para estudo dos principais frameworks big data em docker.
 <br> Esse setup vai criar dockers com os frameworks HDFS, HBase, Hive, Presto, Spark, Jupyter, Hue, Mongodb, Metabase, Nifi, kafka, Mysql e Zookeeper.
 <br>  
 
+![Ecossistema](ecosystem.jpeg)
+
 ## SETUP
 *OBS: Esse passo deve ser realizado apena uma vez. Após o ambiente criado, utilizar o docker-compose para iniciar os containers como mostrado no tópico INICIANDO O AMBIENTE*
 
