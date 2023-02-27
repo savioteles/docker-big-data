@@ -39,79 +39,6 @@ services:
         limits:
           memory: 500m
   
-  hive-server:
-    image: fjardim/hive
-    container_name: hive-server
-    hostname: hive_server
-    env_file:
-      - ./data/hadoop/hadoop-hive.env
-    environment:
-      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
-      SERVICE_PRECONDITION: "hive-metastore:9083"
-    ports:
-      - "10000:10000"
-    depends_on:
-      - hive-metastore
-    volumes:
-      - ./data/teste:/teste
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-  
-  hive-metastore:
-    image: fjardim/hive
-    container_name: hive_metastore
-    hostname: hive_metastore
-    env_file:
-      - ./data/hadoop/hadoop-hive.env
-    command: /opt/hive/bin/hive --service metastore
-    environment:
-      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 hive-metastore-postgresql:5432"
-    ports:
-      - "9083:9083"
-    depends_on:
-      - hive-metastore-postgresql
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-  
-  hive-metastore-postgresql:
-    image: fjardim/hive-metastore
-    container_name: hive-metastore-postgresql
-    hostname: hive_metastore_postgresql
-    volumes:
-      #- /d/docker/bigdata_docker/data/postgresql:/var/lib/postgresql/data
-      - pgdata:/var/lib/postgresql/data
-    depends_on:
-      - datanode
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-  
-  database:
-    image: fjardim/mysql
-    container_name: database
-    hostname: database
-    ports:
-        - "33061:3306"
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-    command: mysqld --innodb-flush-method=O_DSYNC --innodb-use-native-aio=OFF --init-file /data/application/init.sql
-    volumes:
-        - /d/docker/bigdata_docker/data/mysql/data:/var/lib/mysql
-        - /d/docker/bigdata_docker/data/init.sql:/data/application/init.sql
-    environment:
-        MYSQL_ROOT_USER: root
-        MYSQL_ROOT_PASSWORD: secret
-        MYSQL_DATABASE: hue
-        MYSQL_USER: root
-        MYSQL_PASSWORD: secret
-
   zookeeper:
     image: fjardim/zookeeper
     container_name: zookeeper
@@ -143,23 +70,6 @@ services:
         limits:
           memory: 500m
 
-  hbase-master:
-    image: fjardim/hbase-master
-    container_name: hbase-master
-    hostname: hbase-master
-    env_file:
-      - ./data/hbase/hbase-standalone.env
-    environment:
-      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 zookeeper:2181"
-    ports:
-      - 16010:16010
-    depends_on:
-      - namenode
-    deploy:
-      resources:
-        limits:
-          memory: 500m
-    
   mongo:
     image: fjardim/mongo
     container_name: mongo
