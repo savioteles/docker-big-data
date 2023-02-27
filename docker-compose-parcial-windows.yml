@@ -6,8 +6,7 @@ services:
     container_name: namenode
     hostname: namenode
     volumes:
-      - /d/docker/bigdata_docker/data/hdfs/namenode:/hadoop/dfs/name
-      #- ./input:/input
+      - ./data/hdfs/namenode:/hadoop/dfs/name
     environment:
       - CLUSTER_NAME=test
     env_file:
@@ -24,8 +23,7 @@ services:
     container_name: datanode
     hostname: datanode
     volumes:
-      - /d/docker/bigdata_docker/data/hdfs/datanode:/hadoop/dfs/data
-      #- /d/docker/bigdata_docker/data/hadoop/bank:/bank
+      - ./data/hdfs/datanode:/hadoop/dfs/data
     env_file:
       - ./data/hadoop/hadoop-hive.env
     environment:
@@ -46,7 +44,7 @@ services:
     ports:
       - "2181:2181"
     volumes:
-      - /d/docker/bigdata_docker/data/zookeeper:/opt/zookeeper-3.4.6/data
+      - ./data/zookeeper:/opt/zookeeper-3.4.6/data
     deploy:
       resources:
         limits:
@@ -58,8 +56,8 @@ services:
     hostname: kafka
     ports:
       - "9092:9092"
-    #volumes:
-    #  - /d/docker/bigdata_docker/data/kafka:/kafka/kafka-logs-kafka
+    volumes:
+     - ./data/kafka:/kafka/kafka-logs-kafka
     depends_on:
       - zookeeper
     environment:
@@ -81,7 +79,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - /d/docker/bigdata_docker/data/mongo:/data
+      - ./data/mongo:/data
     deploy:
       resources:
         limits:
